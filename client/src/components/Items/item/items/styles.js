@@ -22,15 +22,17 @@ export default makeStyles({
     transition: "0.3s",
     backgroundColor: 'rgba(0, 0, 0, 0.4)',
     backgroundBlendMode: 'darken',
-    height:"40%",
-    paddingBottom:0
+    height:"90%",
+    width:"100%",
+    paddingBottom:0,
+    objectFit: "cover"
     
 
   },
   cardActions: {
     padding: '0 4px 4px 4px',
     display: 'flex',
-    justifyContent: 'space-between',
+    justifyContent: 'cemter',
   },
   heading: {
     fontWeight: "bold",
@@ -40,7 +42,8 @@ export default makeStyles({
     fontSize: "0.8rem",
  },
  cart: {
-   marginTop:0,
+  margin:"0 25px 2px 25px",
+  fontSize: "1rem"
  }
 
 });

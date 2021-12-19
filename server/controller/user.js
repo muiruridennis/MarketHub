@@ -34,7 +34,7 @@ export const signUp = async (req, res) => {
         const existingUser = await User.findOne({ email });
         if (existingUser) return res.status(400).json({ message: "user already exists!" });
         if (password !== confirmPassword) return res.status(400).json({ message: "password does not match!" });
-        const hashedPassword = await bcrypt.hash(password, 12); // hashing a password. it's not advisable to store plain password in the server database
+        const hashedPassword = await bcrypt.hash(password, 12); // hashing a password. it's  advisablec not to storec password'sc as plain texts in the server database
         const newUser = await User.create({ email, password: hashedPassword, name: `${firstName} ${lastName}`});
         const token = jwt.sign({ email: newUser.email, id: newUser._id }, process.env.SECRET_KEY, { expiresIn: "1h" })
         res.status(200).json({message:"user saved successfully", newUser, token });

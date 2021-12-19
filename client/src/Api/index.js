@@ -13,6 +13,6 @@ API.interceptors.request.use((req) => { //catchs every HTTP request or response 
 export const signIn = (formData) => API.post("/user/signin", formData);
 export const signUp = (formData) => API.post("/user/signup", formData);
 
-export const createItem = (newItem) => API.post("/item", newItem);
-export const fetchItems = () => API.get("/item");
-export const fetchItemsBySearch = (searchQuery)=> API.get(`/item/search?searchQuery=${searchQuery.search || "none"}`);
+export const createItem = (newItem) => API.post("/items", newItem);
+export const fetchItems = (page) => API.get(`/items?page=${page}`);
+export const fetchItemsBySearch = (searchQuery)=> API.get(`/items/search?searchQuery=${searchQuery.search || "none"}`);

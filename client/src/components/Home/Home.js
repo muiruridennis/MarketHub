@@ -1,31 +1,37 @@
 import React, { useEffect } from 'react';
 import { Grid, Grow, Container, Paper} from "@material-ui/core";
-import { useDispatch } from "react-redux";
+import { useHistory, Link, useLocation } from "react-router-dom";
 
-import Category from '../Categories/category';
+
+import Search from '../Categories/search';
 import ItemsForm from '../Items/itemsForm';
 import Items from '../Items/item/items';
-import { getItems } from "../../Actions/items"; 
-import Paginate from "../../helpers/pagination/paginate"
+
+import Paginate from "../../helpers/pagination/paginate";
+ 
 
 function Home() {
-   const dispatch = useDispatch();
-    useEffect(() => {
-        dispatch(getItems());
+   const query= useQuery();
 
-    }, [dispatch]);
+    function useQuery() {
+        return new URLSearchParams(useLocation().search);
+       
+    };
+
+    const page = query.get("page") || 1;
+    const searchQuery = query.get("searchQuery")
 
     return (
         <Grow in>
-            <Container>
+            <Container margin="0">
                 
-                <Grid container justifyContent="space-between" alignItems="stretch" spacing={2}>
-                    <Grid item xs={12} ><Category /></Grid>
-                    <Grid item xs={12}sm={12} md={8}  ><Items /></Grid>
+                <Grid container justifyContent="flex-start" alignItems="center" spacing={2}>
+                    <Grid item xs={12} ><Search /></Grid>
+                    <Grid item xs={12}sm={12} md={12}  ><Items /></Grid>
                     {/* <Grid item xs={12} sm={4}><ItemsForm /></Grid> */}
-                    <Grid item xs={12} sm={6}>
+                    <Grid item xs={12} sm={6} md={8} >
                         <Paper >
-                            <Paginate/>
+                            <Paginate page={page}/>
 
                         </Paper>
                         </Grid>

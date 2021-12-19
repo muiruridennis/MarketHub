@@ -21,9 +21,17 @@ export const CreateItem = async (req, res) => {
 
 }; 
 export const getItems = async (req, res) => {
+    const {page}= req.query;
     try {
-        const items = await Item.find();
-        res.status(200).json(items)
+        const LIMIT = 8;
+        const startIndex = (Number(page) - 1) * LIMIT; // helps get the startrting index of every pager
+        const total = await Item.countDocuments({});
+        const items = await Item.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
+        console.log()
+
+        res.json({ data: items, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
+        
+        
         
     } catch (error) {
         res.status(404).json({ message: error.message});
@@ -33,14 +41,17 @@ export const getItems = async (req, res) => {
 // we use Querry when querring some data   /item?page=1-->Page=1
 // we use PARAMS if you want to get spacific resource --> /item/123 -->id=123 
 export const getItemsBySearch = async (req, res) => {
-    const searchQuery = req.query
+    const {searchQuery} = req.query
     try {
-        const title= new RegExp(searchQuery, "i");
-        const items = await Item.find({ $or: [{title}]});
+        const title= new RegExp(searchQuery, "i"); //i stands for the ignore the case 
+        const items = await Item.find({title});
         res.json({data: items});
+        
     } catch (error) {
         res.status(404).json({message: error.message}); 
     }
+ 
 };
+
 
 export default router

@@ -1,4 +1,4 @@
-import { CREATEITEM, FETCH_ITEMS } from "../constants/actionTypes"
+import { CREATEITEM, FETCH_ITEMS, FETCH_BYSEARCH } from "../constants/actionTypes"
 import * as api from "../Api/index";
 
 export const createItem = (item) => async (dispatch) => {
@@ -11,10 +11,10 @@ export const createItem = (item) => async (dispatch) => {
     }
 };
 
-export const getItems = () => async (dispatch) => {
+export const getItems = (page) => async (dispatch) => {
     try {
-        const {data} = await api.fetchItems(); // through this data from server can be fetched
-        dispatch({type: FETCH_ITEMS, payload: data});
+        const {data:{data, currentpage, numberOfPages}} = await api.fetchItems(page); // through this data from server can be fetched
+        dispatch({type: FETCH_ITEMS, payload:{data, currentpage, numberOfPages}});
         
         
     } catch (error) {
@@ -25,7 +25,9 @@ export const getItems = () => async (dispatch) => {
 export const getItemsBySearch =  (searchQuery)=> async(dispatch)=>{
     try {
         const {data:{data}} = await api.fetchItemsBySearch(searchQuery);
-        console.log("data", data);
+        dispatch({type: FETCH_BYSEARCH, payload: {data}});// its destucted {data} and not data
+        console.log("SearchData", data);
+
     } catch (error) {
         console.log(error.message)
         

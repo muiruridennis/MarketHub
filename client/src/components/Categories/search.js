@@ -10,36 +10,50 @@ import { getItemsBySearch } from '../../Actions/items';
 
 function useQuery() {
     return new URLSearchParams(useLocation().search);
+   
 };
-function Category() {
+function Search() {
     const [search, setSearch] = useState("");
     const [items, setItems] = useState([]);
     const classes= useStyles();
     const history= useHistory();
     const dispatch= useDispatch();
-    
+    const query= useQuery();
+   
+    const searchQuery = query.get("searchQuery")
+
 
     const searchItem = () => {
         if (search.trim()) {
              dispatch(getItemsBySearch({search}));
-            // history.push(`/item/search?searchQuery=${search || "none"}`);
+            history.push(`/items/search?searchQuery=${search || "none" }`);
+            
 
         } else {
-            history.push("./")
+            history.push("/")
         }
+        
     };
 
     const handleAddChip = (item) => setItems([...items, item]);
     const handleDeleteChip = (chipDelete) => setItems(items.filter((item) => item !== chipDelete));
-
-    const query = useQuery();
-    const page = query.get("page") || 1;
-    const searchQuery = query.get("searchQuery")
+    const handleKeyPress = (e) => {
+        if (e.keyCode === 13) {
+          searchItem();
+        }
+      };
+   
+   
+    
     return (
         <Paper className={classes.searchBar}>
             <Grid  container spacing={1} margin={2}>
                 <Grid item>
-                <TextField className={classes.textSearch} value={search} label="search" variant="filled" type="search" onChange={(e) => setSearch(e.target.value)} />
+                <TextField className={classes.textSearch} 
+                value={search} label="Search" variant="outlined" type="search" 
+                onChange={(e) => setSearch(e.target.value)} 
+                onKeyDown = {handleKeyPress}
+                />
             <ChipInput
                 // style={{ margin: '10px 0' }}
                 value={items}
@@ -48,14 +62,13 @@ function Category() {
                 label="Search Tags"
                 variant="outlined"
               />
-            <Button onClick={searchItem} className={classes.search}
-             ><SearchIcon  variant="filled" /></Button>
+            <Button onClick={searchItem} variant="contained" className={classes.search}><SearchIcon /></Button>
                 </Grid>
                 {/* <Grid item xs={3}>
                     <div>
                         <Typography variant="h6">computer Accessories</Typography>
 
-                    </div>
+                    </div> 
                 </Grid>
                 <Grid item xs={3}>
                     <div>
@@ -96,5 +109,4 @@ function Category() {
 
     )
 }
-
-export default Category
+export default Search

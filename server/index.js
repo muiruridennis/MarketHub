@@ -16,7 +16,7 @@ app.use(cors());
 dotenv.config();
 
 app.use("/user", userRoutes);
-app.use("/item", itemRoutes);
+app.use("/items", itemRoutes);
 
 
 app.get('/', (req, res) => {

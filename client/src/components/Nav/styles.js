@@ -1,62 +1,81 @@
-import { makeStyles } from "@material-ui/styles";
+import { makeStyles } from "@material-ui/core/styles";
 
-export default makeStyles((theme) => ({
+export default makeStyles( (theme) => ({
   appBar: {
-    borderRadius: 15,
-    margin: "10px, 0",
-    display: "flex",
-    alignItems: "center",
-    flexDirection: "row",
-    justifyContent: "flex-start",
-    padding: "2px 20px",
-    width: "100%",
-    backgroundColor: "#10b475",
-
+    backgroundColor:"#008080",
+    position: "sticky",
+    left: 0,
+    borderRadius:4,
+    // marginBottom:theme.spacing(25),
   },
-  container: {
-    alignItems: "center",
-    display: "flex",
-  },
-  headings: {
-    color: 'rgba(0,183,255, 1)',
-    textDecoration: 'none',
-    
-  },
+ 
   toolbar: {
     display: 'flex',
-    justifyContent: 'space-around',
-    marginRight: '6px'
-   
-  },
-  profile: {
-    display: 'flex',
+    flexDirection: 'row',
     justifyContent: 'space-between',
+    alignItems: 'center',
+  },
+  mainTask:{
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'flex-end',
+    alignItems: 'center',
+    flexGrow:1,
+  },
+
+  container: {
+    display: 'flex',
+
+  },
+  title: {
+    textDecoration:"none",
+    color: "#d1ac09",
+  },
+
+  span: {
+    borderRadius: "100%",
+    color: "#ff0000",
+    fontWeight: "bold",
+    fontSize:"1.5rem",
+    '&:hover': {
+      background: "#09aa6c",},
+      
+  },
+  task: {
+    marginRight:"50px"
+  },
+  mobileSpan: {
+    borderRadius: "100%",
+    color: "#ff0000",
+    fontSize:"1rem",
+  
+  },
+  shoppingCart: {
+    fontSize:"50px",
+    alignSelf:"center",
+  },
+
+  profile: {
+    display:"flex"
     
   },
-  avatar: {
-
-    backgroundColor: "purple",
+  mobileProfile: {
+    display:"flex",    
   },
   userName: {
     color: "white",
-    fontSize: "0.8rem",
+    fontSize: ".8rem",
     display: 'flex',
     alignItems: 'center',
     margin:"0 12px 0 12px"
   },
-  span: {
-     backgroundColor:  "red",
-    borderRadius: "50%",
-    zIndex: 1,
-     fontSize: "20px",
-    fontWeight: "bold"
+  mobileLogout: {
+    fontSize:"0.7rem"
+
   },
-  shoppingCart: {
-    backgroundColor: "white"
-  },
+ 
   searchBox: {
     display: "flex",
-    
   },
   search:{
     color:"white",

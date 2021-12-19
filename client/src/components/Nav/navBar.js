@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { AppBar, Toolbar, Typography, Button, Avatar } from "@material-ui/core";
+import React, { useState, useEffect, Fragment } from 'react';
+import { AppBar, Toolbar, Typography, Button, Avatar, useMediaQuery, } from "@material-ui/core";
+import { useTheme } from '@mui/material/styles';
 import { useHistory, Link, useLocation } from "react-router-dom";
 import decode from 'jwt-decode';
 import { useDispatch, useSelector } from "react-redux";
@@ -14,9 +15,13 @@ function Navbar() {
     const history = useHistory();
     const location = useLocation();// returns a new location when an url is changed
     const dispatch = useDispatch();
-
-    const logOut = () => {
+    const theme = useTheme();
+    const logOut = (e) => {
         dispatch({ type: "LOGOUT" });
+        if(location.pathname === "/myshopping"){
+            history.push("/myshopping");
+        }
+        else
         history.push("/");
         setUser(null);
     };
@@ -32,30 +37,42 @@ function Navbar() {
 
     }, [location]);
     const numberCart = useSelector((state) => state.cart.numberCart); //since we are accessing store state we must add cart.numberCart
+    const isMobile = useMediaQuery(theme.breakpoints.down("sm"));
 
     return (
 
-        <AppBar className={classes.appBar} position="static" color="inherit">
-            <div className={classes.container}>
-                <Typography component={Link} to="./" className={classes.headings} variant="h4" align="center">sMaker</Typography>
-                <ShoppingCartIcon className={classes.shoppingCart} fontSize="large" />
-                <Button component={Link} to={"./myshopping"} variant="contained" className={classes.span}> {numberCart} </Button>
+        <AppBar className={isMobile ? classes.mobileAppBar : classes.appBar}>
 
-            </div>
+            <Toolbar className={isMobile ? classes.mobileToolBar : classes.toolbar}>
+                <div >
+                    <Typography className={classes.title} component={Link} to="./"  variant="h5" align="center">sMaker</Typography>
 
-            <Toolbar className={classes.toolbar}>
+                </div>
+                <div className={classes.mainTask}>
+                    <div className={classes.task}>
+                        {
+                            user ?
+                                (<div className={isMobile ? classes.mobileProfile : classes.profile}>
+                                    {/* <Typography variant='h6'>{`welcome back ${user.newUser.name}`}</Typography> */}
+                                    <Avatar className={classes.avatar} alt={user.newUser.name} src={user.newUser.imageUrl}>{user.newUser.name.charAt(0)}</Avatar>
+                                    <Typography className={classes.userName} variant="h4">{user.newUser.name}</Typography>
+                                    <Button className={isMobile ? classes.mobileLogout : classes.logout} variant="contained" color="secondary" onClick={logOut}>Logout</Button>
+                                </div>) :
+                                (<Button component={Link} to={"./Auth"} variant="contained" color="primary">Sign In</Button>)
 
-                {
-                    user ?
-                        (<div className={classes.profile}>
-                            {/* <Typography variant='h6'>{`welcome back ${user.newUser.name}`}</Typography> */}
-                            <Avatar className={classes.avatar} alt={user.newUser.name} src={user.newUser.imageUrl}>{user.newUser.name.charAt(0)}</Avatar>
-                            <Typography className={classes.userName} variant="h6" >{user.newUser.name.toUpperCase()}</Typography>
-                            <Button className={classes.logout} variant="contained" color="secondary" onClick={logOut}>Logout</Button>
-                        </div>) :
-                        (<Button component={Link} to={"./Auth"} variant="contained" color="primary">Sign In</Button>)
+                        }
+                    </div>
+                    
+                    <div className={isMobile ? classes.MobileContainer : classes.container}>
+                        <Button component={Link} to={"./myshopping"} size="small" variant="contained"
+                        className={isMobile ? classes.mobileSpan : classes.span}> <ShoppingCartIcon />{numberCart} </Button>
+                    </div>
+                </div>
 
-                }
+               
+               
+
+               
 
             </Toolbar>
 

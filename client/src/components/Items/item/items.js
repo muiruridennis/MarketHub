@@ -9,16 +9,13 @@ import Item from "./items/Item";
 
 
 function Items() {
-    const items = useSelector((state) => state.items);
-    
-    
-    
+    const {items} = useSelector((state) => state.items);
 
     return (
-        !items.length ? <CircularProgress /> : (
+        !items?.length ? <CircularProgress /> : (
             <Grid container  alignitems="stretch" spacing={3}>
                 {items.map((item) => (
-                    <Grid  key={item._id} item xs={12}  sm={4} md={4}>
+                    <Grid  key={item._id} item xs={6}  sm={6} md={4} lg={3}>
                         <Item item={item} />
                     </Grid> 
                 ))}
