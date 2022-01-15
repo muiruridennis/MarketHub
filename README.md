@@ -13,6 +13,6 @@ Here are screenshots that show the E-commerce demo application in use.
 ### checkout Page
 ![checkout](https://user-images.githubusercontent.com/73415456/149617681-fc630716-c48e-4504-8f6f-0862e5557eba.png)
 
-###Item Detail Page
+### Item Detail Page
 
 ![itemdetails](https://user-images.githubusercontent.com/73415456/149617978-c1c9849f-4ed9-483a-b20d-4b69c1a966ff.png)
