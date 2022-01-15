@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Paper, Button, Typography, TextField, Select, InputLabel, MenuItem, InputAdornment, OutlinedInput } from "@material-ui/core";
 import Filebase from "react-file-base64";
 import { useSelector, useDispatch } from "react-redux";
+import {useHistory} from "react-router-dom";
 
 import useStyles from "./styles";
 import { createItem } from "../../Actions/items"
@@ -10,12 +11,12 @@ function ItemsForm() {
     const [itemData, setItemData] = useState({ title: "", description: "", price: "", selectedFile: "", category: "", });
     
     const dispatch = useDispatch();
-
+    const history = useHistory();
     const classes = useStyles();
 
     const handleSubmit = (e) => {
         e.preventDefault();
-        dispatch(createItem({...itemData}));
+        dispatch(createItem({...itemData, history}));
         clear(); //helps to clear form after data is submitted
 
     }
@@ -31,9 +32,11 @@ function ItemsForm() {
         { item: "Shoe", value: "shoe" },
         { item: "Electronics", value: "Electronics" },
         { item: "Vegetables", value: "Vegetables" },
+        { item: "Jewellaries", value: "Jewellaries" },
         { item: "Toys", value: "toys" },
         { item: "Utensills", value: "utensills" },
         { item: "Food", value: "Food" },
+        { item: "Furniture", value: "Furniture" },
     ]
     return (
         <Paper classname={classes.paper}>

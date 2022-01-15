@@ -16,9 +16,18 @@ export default makeStyles((theme) => ({
         // alignItems:"center",
         // transformItems:"center"
     },
+    noCheckout:{
+        display: "none ",
+    },
     p: {
         color: "#000080",
         marginTop:"9px",
+    },
+    isNull: {
+        display: "none"
+    },
+    userLogged: {
+        display: "block"
     }
 
 }))

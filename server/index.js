@@ -3,8 +3,12 @@ import cors from 'cors';
 import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+
+
 import userRoutes from './Routes/user.js';
 import itemRoutes from "./Routes/item.js";
+import mpesaRoutes from "./Routes/mpesa.js";
+
 
 
 
@@ -17,21 +21,17 @@ dotenv.config();
 
 app.use("/user", userRoutes);
 app.use("/items", itemRoutes);
+app.use("/mpesa", mpesaRoutes);
 
+const PORT = process.env.PORT  ;
 
-app.get('/', (req, res) => {
-    res.send("Hello lets shop now");
-});
-
-const PORT = process.env.PORT || 5000;
 
 const connectToDatabase = async () => {
-
 
     try {
         await mongoose.connect(process.env.DB_CONNECTION, {
             useNewUrlParser: true,
-            // useUnifiedTopology: true,
+            useUnifiedTopology: true,
             // useFindAndModify: false,
 
             // useCreateIndex: true
@@ -40,12 +40,14 @@ const connectToDatabase = async () => {
         console.log('MongoDB connected successfully!!');
 
     } catch (err) {
-        console.log(err.message);
+        console.log("database connection failed. exiting now...");
+        console.error(err);
         process.exit(1);
+
 
     };
 }
-connectToDatabase();   
+// connectToDatabase();
 
 const server = async () => {
     try {

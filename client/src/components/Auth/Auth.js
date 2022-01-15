@@ -21,7 +21,6 @@ function Auth() {
     const [isSignup, setIsSignup] = useState(false);
     const [showPassword, setShowPassword] = useState(false);
     const [formData, setformData] = useState(initialState);
-    // const [isAdmin, setIsAdmin] = useState(false)
 
     const handleSubmit = (e) => {
         e.preventDefault();

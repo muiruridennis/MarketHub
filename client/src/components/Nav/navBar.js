@@ -18,8 +18,8 @@ function Navbar() {
     const theme = useTheme();
     const logOut = (e) => {
         dispatch({ type: "LOGOUT" });
-        if(location.pathname === "/myshopping"){
-            history.push("/myshopping");
+        if(location.pathname === "/items/myshopping"){
+            history.push("/items/myshopping");
         }
         else
         history.push("/");
@@ -45,7 +45,7 @@ function Navbar() {
 
             <Toolbar className={isMobile ? classes.mobileToolBar : classes.toolbar}>
                 <div >
-                    <Typography className={classes.title} component={Link} to="./"  variant="h5" align="center">sMaker</Typography>
+                    <Typography className={classes.title} component={Link} to="/"  variant="h5" align="center">sMaker</Typography>
 
                 </div>
                 <div className={classes.mainTask}>
@@ -58,13 +58,13 @@ function Navbar() {
                                     <Typography className={classes.userName} variant="h4">{user.newUser.name}</Typography>
                                     <Button className={isMobile ? classes.mobileLogout : classes.logout} variant="contained" color="secondary" onClick={logOut}>Logout</Button>
                                 </div>) :
-                                (<Button component={Link} to={"./Auth"} variant="contained" color="primary">Sign In</Button>)
+                                (<Button component={Link} to={"/auth"} variant="contained" color="primary">Sign In</Button>)
 
                         }
                     </div>
                     
                     <div className={isMobile ? classes.MobileContainer : classes.container}>
-                        <Button component={Link} to={"./myshopping"} size="small" variant="contained"
+                        <Button component={Link} to={"/items/myshopping"} size="small" variant="contained"
                         className={isMobile ? classes.mobileSpan : classes.span}> <ShoppingCartIcon />{numberCart} </Button>
                     </div>
                 </div>

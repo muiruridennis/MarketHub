@@ -12,10 +12,14 @@ export default makeStyles({
     // margin: '4px',
     boxShadow: "0 8px 40px -12px rgba(0,0,0,0.3)",
     "&:hover" : {
-      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)"
+      boxShadow: "0 16px 70px -12.125px rgba(0,0,0,0.3)",
+      backgroundColor: "#b8d8cc",
     },
     paddingBottom:0,
 
+  },
+  btnBase: {
+    display: 'inline-block',
   },
   media: {
     paddingTop: ".25%",
@@ -44,6 +48,18 @@ export default makeStyles({
  cart: {
   margin:"0 25px 2px 25px",
   fontSize: "1rem"
+ },
+ favorite: {
+   fontSize: "2rem",
+
+   "&:hover" :{
+    backgroundColor:'pink',
+    cursor:"pointer",
+   },
+   borderRadius:"120%"
+   
+   
+   
  }
 
 });

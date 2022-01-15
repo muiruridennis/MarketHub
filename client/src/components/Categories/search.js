@@ -8,19 +8,15 @@ import { useHistory, Link, useLocation } from "react-router-dom";
 import useStyles from "./styles";
 import { getItemsBySearch } from '../../Actions/items';
 
-function useQuery() {
-    return new URLSearchParams(useLocation().search);
-   
-};
 function Search() {
     const [search, setSearch] = useState("");
     const [items, setItems] = useState([]);
     const classes= useStyles();
     const history= useHistory();
     const dispatch= useDispatch();
-    const query= useQuery();
+  
    
-    const searchQuery = query.get("searchQuery")
+
 
 
     const searchItem = () => {
@@ -35,8 +31,8 @@ function Search() {
         
     };
 
-    const handleAddChip = (item) => setItems([...items, item]);
-    const handleDeleteChip = (chipDelete) => setItems(items.filter((item) => item !== chipDelete));
+    // const handleAddChip = (item) => setItems([...items, item]);
+    // const handleDeleteChip = (chipDelete) => setItems(items.filter((item) => item !== chipDelete));
     const handleKeyPress = (e) => {
         if (e.keyCode === 13) {
           searchItem();
@@ -46,7 +42,7 @@ function Search() {
    
     
     return (
-        <Paper className={classes.searchBar}>
+        <Paper className={classes.searchBar} >
             <Grid  container spacing={1} margin={2}>
                 <Grid item>
                 <TextField className={classes.textSearch} 
@@ -54,14 +50,14 @@ function Search() {
                 onChange={(e) => setSearch(e.target.value)} 
                 onKeyDown = {handleKeyPress}
                 />
-            <ChipInput
+            {/* <ChipInput
                 // style={{ margin: '10px 0' }}
                 value={items}
                 onAdd={(chip) => handleAddChip(chip)}
                 onDelete={(chip) => handleDeleteChip(chip)}
                 label="Search Tags"
                 variant="outlined"
-              />
+              /> */}
             <Button onClick={searchItem} variant="contained" className={classes.search}><SearchIcon /></Button>
                 </Grid>
                 {/* <Grid item xs={3}>

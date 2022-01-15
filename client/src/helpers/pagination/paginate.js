@@ -21,6 +21,7 @@ function Paginate({page}) {
     
     
     return (
+
         <Pagination
         classes={{ul:classes.ul}}
         count={numberOfPages}

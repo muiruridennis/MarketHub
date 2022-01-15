@@ -13,7 +13,7 @@ export const CreateItem = async (req, res) => {
         
         
     } catch (error) {
-        res.status(409).jsson({ message: error.message})
+        res.status(409).json({ message: error.message})
         console.error(error);
         
     }
@@ -27,7 +27,6 @@ export const getItems = async (req, res) => {
         const startIndex = (Number(page) - 1) * LIMIT; // helps get the startrting index of every pager
         const total = await Item.countDocuments({});
         const items = await Item.find().sort({ _id: -1 }).limit(LIMIT).skip(startIndex);
-        console.log()
 
         res.json({ data: items, currentPage: Number(page), numberOfPages: Math.ceil(total / LIMIT)});
         
@@ -41,11 +40,24 @@ export const getItems = async (req, res) => {
 // we use Querry when querring some data   /item?page=1-->Page=1
 // we use PARAMS if you want to get spacific resource --> /item/123 -->id=123 
 export const getItemsBySearch = async (req, res) => {
-    const {searchQuery} = req.query
+    const {searchQuery} = req.query;
     try {
-        const title= new RegExp(searchQuery, "i"); //i stands for the ignore the case 
-        const items = await Item.find({title});
+        const title = new RegExp(searchQuery, "i"); //i stands for the ignore the case 
+        const items = await Item.find({title });
         res.json({data: items});
+        
+    } catch (error) {
+        res.status(404).json({message: error.message}); 
+    }
+ 
+};
+
+export const getItem = async (req, res) => {
+    const {id} = req.params;
+    try {
+        const item = await Item.findById(id);
+         res.status(200).json(item);
+        
         
     } catch (error) {
         res.status(404).json({message: error.message}); 
